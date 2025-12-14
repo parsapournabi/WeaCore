@@ -81,5 +81,8 @@ CMakeLists.txt.user*
 .uic/
 /build*/
 
-# Self added
-*qtc_cache*
+# Custom files and dirs
+*build*
+*BUILD*
+.env
+.idea/*
