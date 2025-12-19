@@ -26,7 +26,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 # Optional QML support
-option(WITH_QML "Enable QML modules" OFF)
+option(WITH_QML "Enable QML modules" ON)
 if(WITH_QML)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Qml Quick)
 endif()
