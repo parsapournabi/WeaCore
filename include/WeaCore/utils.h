@@ -2,6 +2,10 @@
 #define UTILS_H
 
 #include <QObject>
+#include "init.h"
+
+WEACORE_NAMESPACE_START
+
 
 /** Properties declaration macros ( Only can use on Header ) **/
 
@@ -100,5 +104,59 @@
     signals: \
         void name##Changed();
 
+
+/** Utilities Functions **/
+
+/*!
+ * \brief isSameFlag: Check if value arg is equal with flag.
+ * \param flag
+ * \param value
+ * \return bool: true if flag & value have same values.
+ */
+template <typename T>
+inline bool isSameFlag(T flag, T value)
+{
+    return flag == value;
+}
+
+/*!
+ * \brief isSameFlag: Check if value arg is equal with flag.
+ * \param flag
+ * \param value
+ * \return bool: true if flag & value have same values.
+ */
+template <typename T1, typename T2>
+inline bool isSameFlag(T1 flag, T2 value)
+{
+    return flag == value;
+}
+
+
+/*!
+ * \brief hasFlag: Check if value arg contains in an enumeration flag.
+ * \param flag
+ * \param value
+ * \return bool : true if the value containse in flags.
+ */
+template <typename T>
+inline bool hasFlag(T flag, T value)
+{
+    return (flag & value) == flag;
+}
+
+/*!
+ * \brief hasFlag: Check if value arg contains in an enumeration flag.
+ * \param flag
+ * \param value
+ * \return bool : true if the value containse in flags.
+ */
+template <typename T1, typename T2>
+inline bool hasFlag(T1 flag, T2 value)
+{
+    return (flag & value) == flag;
+}
+
+
+WEACORE_NAMESPACE_END
 
 #endif // UTILS_H
