@@ -61,12 +61,12 @@ class LoggerStream
          */
         LoggerStream& operator<<(QDebugManipulator manip);
 
-        template<typename T>
         /*!
          * \brief operator << : This function will handle the variantation inputs for print and streaming process.
          * \param value : template base value.
          * \return LoggerStream &.
          */
+        template<typename T>
         inline LoggerStream& operator<<(T value)
         {
             debug() << value << ' ';

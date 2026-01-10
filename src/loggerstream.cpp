@@ -36,14 +36,14 @@ LoggerStream::~LoggerStream()
 LoggerStream& LoggerStream::nologlevel()
 {
     Q_D(LoggerStream);
-    d->params.logFilter &= ~TLogFilter::Level;
+    d->params.logFilter = removeFlag(d->params.logFilter, TLogFilter::Level);
     return *this;
 }
 
 LoggerStream& LoggerStream::notimestamp()
 {
     Q_D(LoggerStream);
-    d->params.logFilter &= ~TLogFilter::Timestamp;
+    d->params.logFilter = removeFlag(d->params.logFilter, TLogFilter::Timestamp);
     return *this;
 
 }
@@ -52,21 +52,21 @@ LoggerStream& LoggerStream::noclassname()
 {
 
     Q_D(LoggerStream);
-    d->params.logFilter &= ~TLogFilter::ClassName;
+    d->params.logFilter = removeFlag(d->params.logFilter, TLogFilter::ClassName);
     return *this;
 }
 
 LoggerStream& LoggerStream::nofunctionname()
 {
     Q_D(LoggerStream);
-    d->params.logFilter &= ~TLogFilter::FuncName;
+    d->params.logFilter = removeFlag(d->params.logFilter, TLogFilter::FuncName);
     return *this;
 }
 
 LoggerStream& LoggerStream::noline()
 {
     Q_D(LoggerStream);
-    d->params.logFilter &= ~TLogFilter::LineNo;
+    d->params.logFilter = removeFlag(d->params.logFilter, TLogFilter::LineNo);
     return *this;
 }
 
@@ -247,11 +247,6 @@ void LoggerStreamPrivate::puzzleLogFilters()
         prefix += ": ";
     }
 
-    // QString prefix = QString("[%1][%2][%3::%4][Line:%5]: ")
-    //                  .arg(logLevelToString(params.level),
-    //                       QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss.zzz"),
-    //                       params.obj ? params.obj->metaObject()->className() : "UnknownClass", params.function)
-    //                  .arg(params.line);
     if (!m_buffer.isEmpty())
     {
         m_buffer.prepend(prefix);
