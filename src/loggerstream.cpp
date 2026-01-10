@@ -36,14 +36,14 @@ LoggerStream::~LoggerStream()
 LoggerStream& LoggerStream::nologlevel()
 {
     Q_D(LoggerStream);
-    d->m_logFilter &= ~TLogFilter::Level;
+    d->params.logFilter &= ~TLogFilter::Level;
     return *this;
 }
 
 LoggerStream& LoggerStream::notimestamp()
 {
     Q_D(LoggerStream);
-    d->m_logFilter &= ~TLogFilter::Timestamp;
+    d->params.logFilter &= ~TLogFilter::Timestamp;
     return *this;
 
 }
@@ -52,42 +52,42 @@ LoggerStream& LoggerStream::noclassname()
 {
 
     Q_D(LoggerStream);
-    d->m_logFilter &= ~TLogFilter::ClassName;
+    d->params.logFilter &= ~TLogFilter::ClassName;
     return *this;
 }
 
 LoggerStream& LoggerStream::nofunctionname()
 {
     Q_D(LoggerStream);
-    d->m_logFilter &= ~TLogFilter::FuncName;
+    d->params.logFilter &= ~TLogFilter::FuncName;
     return *this;
 }
 
 LoggerStream& LoggerStream::noline()
 {
     Q_D(LoggerStream);
-    d->m_logFilter &= ~TLogFilter::LineNo;
+    d->params.logFilter &= ~TLogFilter::LineNo;
     return *this;
 }
 
 LoggerStream& LoggerStream::datetime(const DateTime& datetime)
 {
     Q_D(LoggerStream);
-    d->m_datetime = datetime;
+    d->params.datetime = datetime;
     return *this;
 }
 
 LoggerStream& LoggerStream::datetimeFormat(int format)
 {
     Q_D(LoggerStream);
-    d->m_datetime.setFormat(format);
+    d->params.datetime.setFormat(format);
     return *this;
 }
 
 LoggerStream& LoggerStream::datetimeMonthFormat(int format)
 {
     Q_D(LoggerStream);
-    d->m_datetime.setMonthFormat(format);
+    d->params.datetime.setMonthFormat(format);
     return *this;
 }
 
@@ -118,12 +118,12 @@ void LoggerStream::setDefaultLogFilter(LogFilter filter)
 
 DateTime LoggerStream::defaultDateTime()
 {
-    return LoggerStreamPrivate::datetime;
+    return LoggerStreamPrivate::globalDateTime;
 }
 
 void LoggerStream::setDefaultDateTime(const DateTime& datetime)
 {
-    LoggerStreamPrivate::datetime = datetime;
+    LoggerStreamPrivate::globalDateTime = datetime;
 }
 
 QDebug& LoggerStream::debug()
@@ -151,15 +151,16 @@ LoggerStreamPrivate::LoggerStreamPrivate(
 
     :
     q_ptr(q),
-    m_level(level),
-    m_obj(obj),
-    m_function(functionName),
-    m_line(line),
-    m_logFilter(globalLogFilter),
     m_buffer(),
-    m_datetime(datetime),
     m_debug(&m_buffer)
 {
+    this->params.level = level;
+    this->params.obj = obj;
+    this->params.function = functionName;
+    this->params.line = line;
+    this->params.logFilter = globalLogFilter;
+    this->params.datetime = globalDateTime;
+
     m_debug.noquote().noquote();
 }
 
@@ -182,7 +183,7 @@ const QString LoggerStreamPrivate::logLevelToString(int level) const
 
 bool LoggerStreamPrivate::debugIsEnabled()
 {
-    return debugIsEnabled(m_obj);
+    return debugIsEnabled(params.obj);
 }
 
 bool LoggerStreamPrivate::debugIsEnabled(const QObject* obj)
@@ -216,41 +217,41 @@ void LoggerStreamPrivate::puzzleLogFilters()
 {
     QString prefix = "";
     prefix.reserve(256);
-    if (hasFlag(TLogFilter::Level, m_logFilter))
+    if (hasFlag(TLogFilter::Level, params.logFilter))
     {
-        prefix += QString("[%1]").arg(logLevelToString(m_level));
+        prefix += QString("[%1]").arg(logLevelToString(params.level));
     }
-    if (hasFlag(TLogFilter::Timestamp, m_logFilter))
+    if (hasFlag(TLogFilter::Timestamp, params.logFilter))
     {
-        prefix += QString("[%1]").arg(m_datetime.currentDateTimeStr());
+        prefix += QString("[%1]").arg(params.datetime.currentDateTimeStr());
     }
-    if (hasFlag(TLogFilter::ClassName, m_logFilter) || hasFlag(TLogFilter::FuncName, m_logFilter))
+    if (hasFlag(TLogFilter::ClassName, params.logFilter) || hasFlag(TLogFilter::FuncName, params.logFilter))
     {
         prefix += "[";
-        if (hasFlag(TLogFilter::ClassName, m_logFilter) && m_obj)
+        if (hasFlag(TLogFilter::ClassName, params.logFilter) && params.obj)
         {
-            prefix += QString("%1::").arg(m_obj->metaObject()->className());
+            prefix += QString("%1::").arg(params.obj->metaObject()->className());
         }
-        if (hasFlag(TLogFilter::FuncName, m_logFilter))
+        if (hasFlag(TLogFilter::FuncName, params.logFilter))
         {
-            prefix += QString("%1").arg(m_function);
+            prefix += QString("%1").arg(params.function);
         }
         prefix += "]";
     }
-    if (hasFlag(TLogFilter::LineNo, m_logFilter))
+    if (hasFlag(TLogFilter::LineNo, params.logFilter))
     {
-        prefix += QString("[Line:%1]").arg(m_line);
+        prefix += QString("[Line:%1]").arg(params.line);
     }
-    if (!isSameFlag(TLogFilter::NoneLog, m_logFilter))
+    if (!isSameFlag(TLogFilter::NoneLog, params.logFilter))
     {
         prefix += ": ";
     }
 
     // QString prefix = QString("[%1][%2][%3::%4][Line:%5]: ")
-    //                  .arg(logLevelToString(m_level),
+    //                  .arg(logLevelToString(params.level),
     //                       QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss.zzz"),
-    //                       m_obj ? m_obj->metaObject()->className() : "UnknownClass", m_function)
-    //                  .arg(m_line);
+    //                       params.obj ? params.obj->metaObject()->className() : "UnknownClass", params.function)
+    //                  .arg(params.line);
     if (!m_buffer.isEmpty())
     {
         m_buffer.prepend(prefix);
