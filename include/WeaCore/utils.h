@@ -126,7 +126,7 @@ inline bool isSameFlag(T flag, T value)
  * \return bool: true if flag & value have same values.
  */
 template <typename T1, typename T2>
-inline bool isSameFlag(T1 flag, T2 value)
+inline constexpr bool isSameFlag(T1 flag, T2 value)
 {
     return flag == value;
 }
@@ -139,7 +139,7 @@ inline bool isSameFlag(T1 flag, T2 value)
  * \return bool : true if the value containse in flags.
  */
 template <typename T>
-inline bool hasFlag(T flag, T value)
+inline constexpr bool hasFlag(T flag, T value)
 {
     return (flag & value) == flag;
 }
@@ -151,11 +151,36 @@ inline bool hasFlag(T flag, T value)
  * \return bool : true if the value containse in flags.
  */
 template <typename T1, typename T2>
-inline bool hasFlag(T1 flag, T2 value)
+inline constexpr bool hasFlag(T1 flag, T2 value)
 {
     return (flag & value) == flag;
 }
 
+/*!
+ * \brief removeFlag : removing an enumeration Flag from the enumeration source using bitwise operator.
+ * \param src : the enumeration source value.
+ * \param flag : specify flag enum.
+ * \return auto : src but with removed flag value.
+ */
+template <typename T1, typename T2>
+inline constexpr auto removeFlag(T1 src, T2 flag)
+{
+    src &= ~flag;
+    return src;
+}
+
+/*!
+ * \brief add : adding an enumeration Flag from the enumeration source using bitwise operator.
+ * \param src : the enumeration source value.
+ * \param flag : specify flag enum.
+ * \return auto : src but with added flag value.
+ */
+template <typename T1, typename T2>
+inline constexpr auto addFlag(T1 src, T2 flag)
+{
+    src |= flag;
+    return src;
+}
 
 WEACORE_NAMESPACE_END
 
