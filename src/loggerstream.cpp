@@ -98,12 +98,12 @@ bool LoggerStream::isLogLevelShort()
 
 bool LoggerStream::logLevelShort()
 {
-    return LoggerStreamPrivate::logLevelShort;
+    return LoggerStreamPrivate::globalLogLevelShort;
 }
 
 void LoggerStream::setLogLevelShort(bool value)
 {
-    LoggerStreamPrivate::logLevelShort = value;
+    LoggerStreamPrivate::globalLogLevelShort = value;
 }
 
 LoggerStream::LogFilter LoggerStream::defaultLogFilter()
@@ -169,15 +169,15 @@ const QString LoggerStreamPrivate::logLevelToString(int level) const
     switch (level)
     {
         case LoggerStream::LogLevel::Debug:
-            return logLevelShort ? "D" : "DEBUG";
+            return globalLogLevelShort ? "D" : "DEBUG";
         case LoggerStream::LogLevel::Info:
-            return logLevelShort ? "I" : "INFO";
+            return globalLogLevelShort ? "I" : "INFO";
         case LoggerStream::LogLevel::Warning:
-            return logLevelShort ? "W" : "WARNING";
+            return globalLogLevelShort ? "W" : "WARNING";
         case LoggerStream::LogLevel::Critical:
-            return logLevelShort ? "E" : "ERROR";
+            return globalLogLevelShort ? "E" : "ERROR";
         default:
-            return logLevelShort ? "U" : "UNKNOWN";
+            return globalLogLevelShort ? "U" : "UNKNOWN";
     }
 }
 
