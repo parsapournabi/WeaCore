@@ -36,7 +36,7 @@ endif()
 # Files
 # ============================
 file(GLOB_RECURSE MODULE_HEADERS "include/*.h")
-file(GLOB_RECURSE MODULE_SOURCES "src/*.cpp")
+file(GLOB_RECURSE MODULE_SOURCES "src/*.cpp" "src/*.h")
 file(GLOB_RECURSE MODULE_SCRIPTS "scripts/*.js")
 file(GLOB_RECURSE MODULE_RESOURCES "qml/*.qrc" "shaders/*.qrc" "scripts/*.qrc")
 file(GLOB_RECURSE MODULE_SHADRES "shaders/*.glsl" "shaders/*.vert" "shaders/*.frag")
@@ -49,7 +49,10 @@ add_library(${MODULE_NAME} SHARED
     ${MODULE_RESOURCES}
 )
 
-target_include_directories(${MODULE_NAME} PUBLIC
+target_include_directories(${MODULE_NAME}
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
