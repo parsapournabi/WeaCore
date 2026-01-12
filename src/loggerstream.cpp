@@ -40,10 +40,25 @@ LoggerStream& LoggerStream::nologlevel()
     return *this;
 }
 
+LoggerStream& LoggerStream::loglevel()
+{
+    Q_D(LoggerStream);
+    d->params.logFilter = addFlag(d->params.logFilter, TLogFilter::Level);
+    return *this;
+}
+
 LoggerStream& LoggerStream::notimestamp()
 {
     Q_D(LoggerStream);
     d->params.logFilter = removeFlag(d->params.logFilter, TLogFilter::Timestamp);
+    return *this;
+
+}
+
+LoggerStream& LoggerStream::timestamp()
+{
+    Q_D(LoggerStream);
+    d->params.logFilter = addFlag(d->params.logFilter, TLogFilter::Timestamp);
     return *this;
 
 }
@@ -56,6 +71,14 @@ LoggerStream& LoggerStream::noclassname()
     return *this;
 }
 
+LoggerStream& LoggerStream::classname()
+{
+    Q_D(LoggerStream);
+    d->params.logFilter = addFlag(d->params.logFilter, TLogFilter::ClassName);
+    return *this;
+
+}
+
 LoggerStream& LoggerStream::nofunctionname()
 {
     Q_D(LoggerStream);
@@ -63,10 +86,25 @@ LoggerStream& LoggerStream::nofunctionname()
     return *this;
 }
 
+LoggerStream& LoggerStream::functionname()
+{
+    Q_D(LoggerStream);
+    d->params.logFilter = addFlag(d->params.logFilter, TLogFilter::FuncName);
+    return *this;
+
+}
+
 LoggerStream& LoggerStream::noline()
 {
     Q_D(LoggerStream);
     d->params.logFilter = removeFlag(d->params.logFilter, TLogFilter::LineNo);
+    return *this;
+}
+
+LoggerStream& LoggerStream::line()
+{
+    Q_D(LoggerStream);
+    d->params.logFilter = addFlag(d->params.logFilter, TLogFilter::LineNo);
     return *this;
 }
 

@@ -42,81 +42,6 @@ class LoggerStream
             All = Level | Timestamp | ClassName | FuncName | LineNo
         };
 
-        /*!
-         * \brief LoggerStream : Default Constructure .
-         * \param obj : Current Class which creates current LoggerStream instance.
-         * \param level : an integer based on LogLevel enum.
-         * \param functionName : Current function name.
-         * \param line : Current line number.
-         */
-        LoggerStream(const QObject* obj, int level, const char* functionName, int line);
-        ~LoggerStream();
-
-        /** Logics **/
-        typedef QDebug& (*QDebugManipulator)(QDebug&);
-        /*!
-         * \brief operator << : based on QDebug & QLoggerStream classes.
-         * \param manip : QDebugManipulator
-         * \return LoggerStream& .
-         */
-        LoggerStream& operator<<(QDebugManipulator manip);
-
-        /*!
-         * \brief operator << : This function will handle the variantation inputs for print and streaming process.
-         * \param value : template base value.
-         * \return LoggerStream &.
-         */
-        template<typename T>
-        inline LoggerStream& operator<<(T value)
-        {
-            debug() << value << ' ';
-            return *this;
-        }
-
-        /*!
-         * \brief nologlevel : removing logLevel from current streaming instance.
-         * \return LoggerStream& .
-         */
-        LoggerStream& nologlevel();
-        /*!
-         * \brief notimestamp : removing timestamp from current streaming instance.
-         * \return LoggerStream& .
-         */
-        LoggerStream& notimestamp();
-        /*!
-         * \brief noclassname : removing classname from current streaming instance.
-         * \return LoggerStream& .
-         */
-        LoggerStream& noclassname();
-        /*!
-         * \brief nofunctionname : removing functionName from current streaming instance.
-         * \return LoggerStream& .
-         */
-        LoggerStream& nofunctionname();
-        /*!
-         * \brief noline : removing line number from current streaming instance.
-         * \return LoggerStream& .
-         */
-        LoggerStream& noline();
-        /*!
-         * \brief datetime : manual adding datetime format.
-         * \param datetime : DateTime
-         * \return LoggerStream& .
-         */
-        LoggerStream& datetime(const DateTime& datetime);
-        /*!
-         * \brief datetimeFormat : manual adding format based on DateTimeFormat enum.
-         * \param format : int -> format based on DateTimeFormat enum.
-         * \return LoggerStream & .
-         */
-        LoggerStream& datetimeFormat(int format);
-        /*!
-         * \brief datetimeMonthFormat : manual adding monthFormat based on MonthFormat enum.
-         * \param format : int -> monthFormat based on MonthFormat enum.
-         * \return LoggerStream & .
-         */
-        LoggerStream& datetimeMonthFormat(int format);
-
         /** Statics **/
         /*!
          * \brief isLogLevelShort : global function getter
@@ -158,6 +83,107 @@ class LoggerStream
          * \param datetime : DateTime -> global DateTime which want to use for all instances.
          */
         static void setDefaultDateTime(const DateTime& datetime);
+
+
+        /*!
+         * \brief LoggerStream : Default Constructure .
+         * \param obj : Current Class which creates current LoggerStream instance.
+         * \param level : an integer based on LogLevel enum.
+         * \param functionName : Current function name.
+         * \param line : Current line number.
+         */
+        LoggerStream(const QObject* obj, int level, const char* functionName, int line);
+        ~LoggerStream();
+
+        /** Logics **/
+        typedef QDebug& (*QDebugManipulator)(QDebug&);
+        /*!
+         * \brief operator << : based on QDebug & QLoggerStream classes.
+         * \param manip : QDebugManipulator
+         * \return LoggerStream& .
+         */
+        LoggerStream& operator<<(QDebugManipulator manip);
+
+        /*!
+         * \brief operator << : This function will handle the variantation inputs for print and streaming process.
+         * \param value : template base value.
+         * \return LoggerStream &.
+         */
+        template<typename T>
+        inline LoggerStream& operator<<(T value)
+        {
+            debug() << value << ' ';
+            return *this;
+        }
+
+        /*!
+         * \brief nologlevel : removing logLevel from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& nologlevel();
+        /*!
+         * \brief loglevel : adding logLevel from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& loglevel();
+        /*!
+         * \brief notimestamp : removing timestamp from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& notimestamp();
+        /*!
+         * \brief timestamp : adding timestamp from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& timestamp();
+        /*!
+         * \brief noclassname : removing classname from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& noclassname();
+        /*!
+         * \brief classname : adding classname from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& classname();
+        /*!
+         * \brief nofunctionname : removing functionName from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& nofunctionname();
+        /*!
+         * \brief functionname : adding functionname from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& functionname();
+        /*!
+         * \brief noline : removing line number from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& noline();
+        /*!
+         * \brief line : adding line from current streaming instance.
+         * \return LoggerStream& .
+         */
+        LoggerStream& line();
+        /*!
+         * \brief datetime : manual adding datetime format.
+         * \param datetime : DateTime
+         * \return LoggerStream& .
+         */
+        LoggerStream& datetime(const DateTime& datetime);
+        /*!
+         * \brief datetimeFormat : manual adding format based on DateTimeFormat enum.
+         * \param format : int -> format based on DateTimeFormat enum.
+         * \return LoggerStream & .
+         */
+        LoggerStream& datetimeFormat(int format);
+        /*!
+         * \brief datetimeMonthFormat : manual adding monthFormat based on MonthFormat enum.
+         * \param format : int -> monthFormat based on MonthFormat enum.
+         * \return LoggerStream & .
+         */
+        LoggerStream& datetimeMonthFormat(int format);
 
     protected:
         /*!
