@@ -6,7 +6,7 @@
 /*!
  * \brief WEACORE_NAMESPACE_START: module namespace start
  */
-#define WEACORE_NAMESPACE_START namespace MODULE_NAME {
+#define WEACORE_NAMESPACE_START namespace WeaCore {
 
 /*!
  * \brief WEACORE_NAMESPACE_END : module namespace end
@@ -16,6 +16,6 @@
 /*!
  * \brief USE_NAMESPACE_WEACORE : module namespace using macro.
  */
-#define USE_NAMESPACE_WEACORE using namespace MODULE_NAME;
+#define USE_NAMESPACE_WEACORE using namespace WeaCore;
 
 #endif // INIT_H
