@@ -4,7 +4,6 @@ cmake_minimum_required(VERSION 3.16)
 #  Variables
 # ============================
 include(.cmake.conf)
-include(cmake/macros.cmake.conf)
 # ============================
 
 project(${MODULE_NAME}
