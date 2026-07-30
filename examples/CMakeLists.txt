@@ -6,6 +6,6 @@ add_executable(${MODULE_NAME}Example
 
 target_link_libraries(${MODULE_NAME}Example
     PUBLIC
-        ${MODULE_NAME}
+        ${MODULE_NAMESPACE}::${MODULE_NAME}
         Qt${QT_VERSION_MAJOR}::Core
 )

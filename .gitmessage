@@ -1,0 +1,26 @@
+# ------------------------------------------------------------
+# Format:
+#   [type] summary
+#
+# Examples:
+#   [ui] add login page
+#   [fix] prevent false servo completion
+#   [servo] improve homing reliability
+#
+# Types:
+#   ui backend qml opengl plc servo modbus
+#   core refactor perf docs test build ci
+# ------------------------------------------------------------
+[type] summary
+#
+# added:
+# -
+# 
+# changed:
+# -
+# 
+# fixed:
+# -
+# 
+# notes:
+# -

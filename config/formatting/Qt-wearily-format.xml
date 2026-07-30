@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QtCreatorCodeStyle>
+<!-- Written by QtCreator 20.0.0, 2026-07-30T13:51:11. -->
+<qtcreator>
+ <data>
+  <variable>CodeStyleData</variable>
+  <valuemap type="QVariantMap">
+   <value type="bool" key="AutoDetect">false</value>
+   <value type="QString" key="CustomFormatterArguments"></value>
+   <value type="QString" key="CustomFormatterPath"></value>
+   <value type="int" key="Formatter">1</value>
+   <value type="int" key="IndentSize">4</value>
+   <value type="int" key="LineLength">80</value>
+   <value type="int" key="PaddingMode">2</value>
+   <value type="QString" key="QmlFormatIniContent">[General]
+NewlineType=native
+UseTabs=true
+NormalizeOrder=false
+MaxColumnWidth=120
+ObjectsSpacing=false
+IndentWidth=4
+SemicolonRule=always
+FunctionsSpacing=true
+</value>
+   <value type="bool" key="SpacesForTabs">false</value>
+   <value type="int" key="TabSize">4</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>DisplayName</variable>
+  <value type="QString">Qt (WeaQuick)</value>
+ </data>
+</qtcreator>

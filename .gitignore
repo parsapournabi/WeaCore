@@ -86,3 +86,4 @@ CMakeLists.txt.user*
 *BUILD*
 .env
 .idea/*
+include/*/*_config.h
